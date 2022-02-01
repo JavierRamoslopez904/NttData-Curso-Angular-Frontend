@@ -1,0 +1,46 @@
+<detalle-cliente *ngIf="clienteSeleccionado" [cliente]="clienteSeleccionado"></detalle-cliente>
+<div class="card text-blue bg-secundary mb-3">
+    <div class="card-header">Clientes</div>
+    <div class="card-body">
+      <h5 class="card-title">Listado de clientes</h5>
+
+        <div class="my-2 text-left">
+            <button class="btn btn-rounded btn-primary" type="button" [routerLink] = "['/clientes/form']"> Crear Cliente</button>
+        </div>
+
+        <div *ngIf="clientes?.length == 0">
+            No hay registros
+        </div>
+        <table class="table table-bordered table-striped" *ngIf="clientes?.length>0">
+            <thead>
+                <th>ID</th>
+                <th>NOMBRE</th>
+                <th>APELLIDO</th>
+                <th>EMAIL</th>
+                <th>EDITAR</th>
+                <th>ELIMINAR</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let cliente of clientes">
+                    <td><img (click)="abrirModal(cliente)" *ngIf="cliente?.foto"
+                       src="http://localhost:8080/api/upload/img/{{cliente.foto}}" class="img-thumbnail rounded"
+                       style="width: 64px; cursor: pointer;">
+
+                       <img (click)="abrirModal(cliente)" *ngIf="!cliente?.foto"
+                       src="http://localhost:8080/images/nouser.png" class="img-thumbnail rounded"
+                       style="width: 64px; cursor: pointer;"></td>
+                    <td>{{cliente.nombre}}</td>
+                    <td>{{cliente.apellido}}</td>
+                    <td>{{cliente.email}}</td>
+                    <td>
+                        <button type="button" [routerLink]="['/clientes/form', cliente.id]">EDITAR</button>
+                    </td>
+                    <td>
+                        <button type="button" (click)='delete(cliente)'>ELIMINAR</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <paginator-nav *ngIf="paginador" [paginador] = "paginador"></paginator-nav>
+    </div>
+  </div>

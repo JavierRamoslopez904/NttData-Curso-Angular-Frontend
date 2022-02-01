@@ -1,0 +1,14 @@
+<ul *ngIf="paginas?.length > 0" class="pagination">
+
+    <li class="page-item" *ngIf="paginador.number > 0">
+        <a class="page-link" [routerLink] = "['/clientes/page', paginador.number-1]">&laquo;</a>
+    </li>
+
+    <li *ngFor="let pagina of paginas" class="page-item" [ngClass]="pagina-1 == paginador.number?'active':''">
+        <span class="page-link" *ngIf="pagina-1 == paginador.number">{{pagina}}</span>
+        <a *ngIf="pagina-1 != paginador.number" [routerLink] = "['/clientes/page', pagina-1]" class="page-link">{{pagina}}</a>  
+    </li>
+    <li class="page-item">
+        <a class="page-link" [routerLink] = "['/clientes/page', paginador.number+1]">&raquo;</a>
+    </li>
+</ul>
